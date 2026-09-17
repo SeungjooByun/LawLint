@@ -5,7 +5,6 @@ description: 개발자가 앱/웹 서비스 코드를 작성하거나 리뷰할 
 
 # LawLint v0.1
 
-> beopsuny는 질문에 답한다. LawLint는 질문 없이 코드를 계속 확인하고, 문제가 보이면 먼저 말한다.
 
 이 스킬은 자체적으로 법률 지식을 갖고 있지 않는다. 하는 일은 딱 두 가지다: **(1) 지금 코드에 트리거가 있는지 감지하고, (2) 걸리면 실시간으로 공식 소스를 조회하게 만든다.**
 
@@ -17,7 +16,7 @@ description: 개발자가 앱/웹 서비스 코드를 작성하거나 리뷰할 
 4. `rules/uncertainty.md` 기준으로 `[VERIFIED]/[UNVERIFIED]/[INSUFFICIENT]/[REGULATORY-GAP]` 라벨을 붙인다.
 5. `templates/legal-review-report.md` 형식으로 짧게 출력한다.
 
-## v0.1의 알려진 한계 (숨기지 않고 명시)
+## v0.1의 알려진 한계
 
 - **law.go.kr 직접 조회가 기본 경로로 확정됨(2026-09-17)** — korean-law-mcp(제3자 중계 서버, OC 코드 필요)는 기본 경로에서 제외. 단, law.go.kr은 자바스크립트 렌더링 사이트라 일반 WebFetch로는 빈 껍데기만 나오고, **Browser 도구(`navigate`+`get_page_text`)로 열어야** 조문 전문이 나온다는 걸 실측으로 확인했다 — `workflows/trigger-to-verification.md` 참고
 - 법망 API는 2026-09-17 기준 503으로 응답 없음 (비공식 서버, 가용성 보장 안 됨) — 최후 수단으로만 사용
