@@ -11,7 +11,7 @@ description: 개발자가 앱/웹 서비스 코드를 작성하거나 리뷰할 
 
 ## 절차
 
-1. `rules/triggers.md`를 읽고 지금 보고 있는 코드/요청이 47개 트리거 중 몇 번에 해당하는지 특정한다. 해당하는 게 없으면 아무 말도 하지 않는다. 대부분은 "코드에 이게 보이면" 걸리지만, 일부(1·16·35·36·37번)는 "있어야 할 게 안 보이면" 걸리는 부재형이다 — `rules/legal-reasoning.md` 1.5절 참고.
+1. `rules/triggers.md` 전체를 읽지 않는다. 코드/요청과 관련된 키워드로 이 파일을 먼저 grep해서(예: `grep -n "^## " rules/triggers.md`로 47개 제목만 훑거나, 의심되는 키워드로 직접 grep) 몇 번 트리거에 해당하는지 후보를 추린 다음, 그 번호의 블록만 읽는다(`grep -A 20 "^## 35\."` 같은 방식). 해당하는 게 없으면 아무 말도 하지 않는다. 대부분은 "코드에 이게 보이면" 걸리지만, 일부(1·16·35·36·37번)는 "있어야 할 게 안 보이면" 걸리는 부재형이다 — `rules/legal-reasoning.md` 1.5절 참고. 부재형은 애초에 코드에 특정 키워드가 없으므로, 키워드 grep보다 47개 제목 목록을 먼저 훑어 해당 여부를 판단하는 쪽이 낫다.
 2. `rules/legal-reasoning.md`의 원칙(기억으로 답하지 않기, 트리거≠결론, 불확실성 기본값)을 따른다.
 3. `workflows/trigger-to-verification.md`에 정의된 우선순위로 실시간 조회를 시도한다: **law.go.kr 직접 조회(Browser 도구로 렌더링, 기본 경로)** → (설치돼 있으면) beopsuny 스킬 → korean-law-mcp(OC 코드 있는 예외적 경우만) → 법망 API(비공식, 최후 수단).
 4. `rules/uncertainty.md` 기준으로 `[VERIFIED]/[UNVERIFIED]/[INSUFFICIENT]/[REGULATORY-GAP]` 라벨을 붙인다.
@@ -26,6 +26,7 @@ description: 개발자가 앱/웹 서비스 코드를 작성하거나 리뷰할 
 - 2026-09-17 재현율 자가점검(웹검색 없이 triggers.md의 코드 패턴과 이 description 키워드만 대조) 결과, 46개 중 17개가 description에 키워드가 없어 실제로는 감지되지 않을 가능성이 높았다 — 발견 즉시 description에 반영 완료. 새 트리거를 추가할 때는 반드시 이 description도 같이 갱신할 것 (누락되면 SKILL.md가 절대 발동하지 않는다)
 - 같은 날 실제 오픈소스 저장소 6개로 재현율 테스트도 진행함([examples/](../examples/) repro-test-*.md 6개 파일). 1번(나이 확인)은 6개 중 6개 모두 미흡하거나 부재 — 부재형 트리거가 실무에서 가장 자주 쓰일 규칙으로 확인됨. 47번(매칭형 서비스 규제 공백)처럼 "위반 여부"가 아니라 "규제가 아직 없다"는 걸 안내해야 하는 특수 케이스도 발견됨 — `rules/uncertainty.md`에 4번째 라벨 `[REGULATORY-GAP]`을 추가해 반영함
 - 할루시네이션 테스트([examples/hallucination-test.md](../examples/hallucination-test.md))에서 검증 없이 답하면 구체적 숫자(과태료·과징금 비율)를 틀리거나 최근 개정을 놓친다는 게 실제로 확인됨. 애매한 질문 테스트([examples/ambiguous-question-test.md](../examples/ambiguous-question-test.md))에서는 사실관계(자동/수동 여부 등)가 결론을 가르는 상황에서 단정하지 않고 되묻는 게 중요하다는 게 확인돼 `rules/legal-reasoning.md` 원칙 7번으로 반영됨. 엔드투엔드 드라이런([examples/dryrun-board.md](../examples/dryrun-board.md)) 중에는 1번 트리거 자체가 조문 번호 없이 방치돼 있던 걸 발견해 정정함 — 부품 단위 테스트로는 못 잡고 전체를 이어봐야 잡히는 종류의 문제였음
+- **토큰 사용량(2026-09-17 실측)**: `description` 필드(2,052 bytes)는 스킬이 걸리든 안 걸리든 세션마다 항상 로드된다. `rules/triggers.md`(69,931 bytes)는 예전엔 "파일을 읽고"라고만 지시해서 트리거 1개가 필요할 때도 매번 전체를 읽었는데, 헤더 47개만 먼저 grep(6,420 bytes)하고 해당 번호 블록만 targeted로 읽는 방식(평균 1,487 bytes)으로 바꾸면 활성화당 약 89% 절감된다 — 위 "절차" 1단계에 반영함
 
 ## 하지 않는 것
 
