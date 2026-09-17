@@ -83,7 +83,13 @@ cp -r /path/to/LawLint ~/.claude/skills/lawlint
 
 **law.go.kr 조회가 안 됨/느림** → `workflows/trigger-to-verification.md`에 정리된 대로 law.go.kr 자체가 자바스크립트 렌더링 사이트라 Browser 도구가 필요하다. Claude Code의 Browser 도구가 이 환경에서 사용 가능한지 확인.
 
-## 7. 제거
+## 7. Codex CLI 호환성 (미검증)
+
+Claude Code 전용으로 설계했지만, OpenAI Codex CLI도 2026년 기준 Claude Code와 동일한 `SKILL.md`(YAML frontmatter의 `name`/`description`) 형식과 description 매칭 기반 암묵적 활성화를 지원한다 — LawLint가 질문 없이 먼저 끼어드는 동작 방식이 그대로 옮겨갈 가능성이 높다. `SKILL.md`가 `name`/`description` 외 다른 필드를 안 쓰기 때문에 Claude Code 전용 필드로 인한 호환성 문제도 없어 보인다.
+
+다만 설치 경로가 다르다(`~/.claude/skills/lawlint/`가 아니라 `~/.agents/skills/lawlint/` 또는 저장소 안 `.agents/skills/lawlint/`). **이 환경에는 Codex CLI가 없어 실제로 설치·구동해보지는 못했다** — 위 내용은 공개 문서 조사 기반이며, 실사용 전 직접 확인 필요.
+
+## 8. 제거
 
 ```bash
 rm -rf ~/.claude/skills/lawlint
