@@ -4,6 +4,8 @@
 
 법순이(beopsuny)가 물어보면 답하는 사내 변호사라면, LawLint는 AI 기능을 코드로 짜는 순간 어깨 너머로 보고 있는 검토자다.
 
+> ⚠️ **LawLint는 법률 자문이 아니다.** 무료·비영리 오픈소스로 제공되며, 정확성을 보장하지 않는다. 자세한 내용은 [DISCLAIMER.md](DISCLAIMER.md) 참고.
+
 ## 범위
 
 한국 **AI 관련 법률** 1개 도메인으로 좁힌다. 법률 지식을 암기해 답하지 않고, 코드 패턴이 트리거를 건드리면 beopsuny / korean-law-mcp 같은 실시간 공식 소스 조회 엔진을 강제로 호출해 근거를 붙인다. 확인 안 된 내용은 `[UNVERIFIED]`로 표시한다.
@@ -25,3 +27,7 @@
 v0.1. `SKILL.md`가 동작하며, 트리거 47개(`rules/triggers.md`), law.go.kr 실시간 검증([workflows/trigger-to-verification.md](workflows/trigger-to-verification.md)), 재현율·할루시네이션·애매한 질문·엔드투엔드 드라이런 테스트를 거쳤다(`examples/` 참고). 47개 트리거 중 상당수가 여전히 `[UNVERIFIED]` 상태이며, 실제로 트리거가 걸릴 때마다 그 순간 다시 검증하는 구조다.
 
 자세한 배경과 4주 계획은 [LawLint_계획_최종.md](LawLint_계획_최종.md) 참고.
+
+## 라이선스
+
+[MIT License](LICENSE). 무료·비영리 배포이며, 어떠한 보증도 하지 않는다. 사용 전 [DISCLAIMER.md](DISCLAIMER.md)를 반드시 읽을 것.
