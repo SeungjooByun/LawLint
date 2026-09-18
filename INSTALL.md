@@ -72,6 +72,31 @@ law.go.kr 조회가 안 되거나 느리면, law.go.kr이 자바스크립트로 
 
 Claude Code용으로 만들었지만, 2026년 기준 OpenAI Codex CLI도 같은 형식의 `SKILL.md`(`name`/`description` YAML frontmatter)와 description 기반 자동 활성화를 지원한다고 한다. 그대로 옮겨갈 가능성은 있어 보이지만, 설치 경로가 다르고(`~/.agents/skills/lawlint/`), 이 환경엔 Codex CLI가 없어서 직접 확인은 못 해봤다. 공개된 문서를 조사한 수준이니 실제로 써보기 전엔 참고만 할 것.
 
+## 업데이트
+
+GitHub에 새 커밋이 올라가도 이미 설치한 사람한테 자동으로 반영되지 않는다. 설치 과정 자체가 클론한 폴더를 복사해서 넣는 방식이라, `~/.claude/skills/lawlint`는 그 시점의 스냅샷일 뿐이고 원본 저장소와 연결되어 있지 않다.
+
+업데이트하려면 처음 클론했던 폴더로 가서 최신 내용을 받은 다음, 설치 폴더에 덮어쓰면 된다.
+
+```bash
+cd LawLint
+git pull
+```
+
+**Windows (PowerShell)**
+
+```powershell
+Copy-Item -Path ".\LawLint" -Destination "$env:USERPROFILE\.claude\skills\lawlint" -Recurse -Force
+```
+
+**macOS / Linux**
+
+```bash
+cp -r ./LawLint/. ~/.claude/skills/lawlint/
+```
+
+처음 클론했던 폴더를 지워버렸다면 `git clone`부터 다시 하면 된다.
+
 ## 제거
 
 ```bash
